@@ -1,5 +1,4 @@
-# evo
-Trying to communicate with the Timebox Evo
+# EVO
 
 ## Milestones
 - [ ] Send a picture to the EVO
