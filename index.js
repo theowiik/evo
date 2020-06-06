@@ -11,6 +11,8 @@ btSerial.findSerialPortChannel(
       function () {
         console.log("connected");
 
+        writeImage();
+
         btSerial.on("data", function (buffer) {
           console.log(buffer.toString("ascii"));
         });
@@ -25,15 +27,22 @@ btSerial.findSerialPortChannel(
   }
 );
 
-var d = new Divoom.TimeboxEvo().createRequest("animation");
-d.read("animation.gif")
-  .then(result => {
-    result.asBinaryBuffer().forEach(elt => {
-      btSerial.write(elt, function (err, bytesWritten) {
-        if (err) console.log(err);
+function writeImage() {
+  var d = new Divoom.TimeboxEvo().createRequest("picture");
+  d.read("img.png")
+    .then(result => {
+      console.log(result.asBinaryBuffer());
+      result.asBinaryBuffer().forEach(elt => {
+        console.log("writing");
+        btSerial.write(elt, function (err, bytesWritten) {
+          if (err) console.log(err);
+        });
       });
+    })
+    .then(value => {
+      console.log("uploaded image");
+    })
+    .catch(err => {
+      throw err;
     });
-  })
-  .catch(err => {
-    throw err;
-  });
+}
