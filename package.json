@@ -1,0 +1,19 @@
+{
+  "name": "evo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theowiik/evo.git"
+  },
+  "author": "theowiik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theowiik/evo/issues"
+  },
+  "homepage": "https://github.com/theowiik/evo#readme"
+}
