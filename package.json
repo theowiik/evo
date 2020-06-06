@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/theowiik/evo/issues"
   },
-  "homepage": "https://github.com/theowiik/evo#readme"
+  "homepage": "https://github.com/theowiik/evo#readme",
+  "dependencies": {
+    "node-divoom-timebox-evo": "^0.3.0"
+  }
 }
