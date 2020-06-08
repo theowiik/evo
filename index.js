@@ -55,12 +55,64 @@ function uploadFrame() {
 }
 
 async function gameOfLife() {
+  let world = randomWorld();
+
   while (true) {
-    let world = randomWorld();
     await worldToFrame(world);
     uploadFrame();
+    world = gameOfLifeStep(world);
     await sleep(500);
   }
+}
+
+/**
+ * Returns the next frame of the world.
+ *
+ * @param {Array<Array<Boolean>>} world the next frame
+ */
+function gameOfLifeStep(world) {
+  let newWorld = [];
+
+  for (let rowIndex = 0; rowIndex < PIXELS; rowIndex++) {
+    let newRow = [];
+
+    for (let colIndex = 0; colIndex < PIXELS; colIndex++) {
+      const neighbors = calcNeighbors(colIndex, rowIndex, world);
+      const alive = world[rowIndex][colIndex];
+
+      if (alive) {
+        newRow.push([2, 3].includes(neighbors));
+      } else {
+        newRow.push(neighbors === 3);
+      }
+    }
+
+    newWorld.push(newRow);
+  }
+
+  return newWorld;
+}
+
+function calcNeighbors(x, y, world) {
+  let neighbors = 0;
+
+  for (let yOffset = -1; yOffset <= 1; yOffset++) {
+    for (let xOffset = -1; xOffset <= 1; xOffset++) {
+      if (!validCoord(x + xOffset, y + yOffset)) continue;
+      if (xOffset === 0 && yOffset === 0) continue;
+
+      if (world[y + yOffset][x + xOffset]) {
+        neighbors++;
+      }
+    }
+  }
+  return neighbors;
+}
+
+function validCoord(x, y) {
+  const tooLarge = x >= PIXELS || y >= PIXELS;
+  const tooSmall = x < 0 || y < 0;
+  return !tooLarge && !tooSmall;
 }
 
 /**
