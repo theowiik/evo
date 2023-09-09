@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/theowiik/evo#readme",
   "dependencies": {
-    "bluetooth-serial-port": "^2.2.7",
     "jimp": "^0.13.0",
     "node-divoom-timebox-evo": "^0.3.0"
   }
